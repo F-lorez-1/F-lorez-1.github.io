@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoviSmart - Compra tus pasajes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 font-sans">
+  <!-- Header -->
+  <header class="bg-blue-800 text-white p-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="images/logo.png" alt="Logo MoviSmart" class="h-16 w-auto">
+      <h1 class="text-3xl font-bold">MoviSmart</h1>
+    </div>
+    <div id="auth-buttons">
+      <a href="login.html" class="bg-white text-blue-800 px-4 py-1 rounded hover:bg-gray-200 mr-2">Iniciar sesión</a>
+      <a href="registro.html" class="bg-white text-blue-800 px-4 py-1 rounded hover:bg-gray-200">Registrarse</a>
+    </div>
+  </header>
+
+  <!-- Botón para buscar horarios -->
+  <div class="text-center my-10">
+    <a href="buscador.html" class="bg-yellow-500 text-white px-6 py-3 text-xl font-semibold rounded hover:bg-yellow-600">
+      Buscar horarios
+    </a>
+  </div>
+
+  <!-- Horarios accesibles sin registro -->
+  <section class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 mt-4">
+    <h2 class="text-xl font-bold mb-4">Horarios de salida desde Corinto, Cauca</h2>
+    <div class="text-right mt-4">
+      <a href="horarios.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Ver todos los horarios (5:20 AM - 6:40 PM)
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <!-- Horarios listados -->
+      <div class="p-4 border rounded">
+        <p><strong>Origen:</strong> Corinto, Cauca</p>
+        <p><strong>Destino:</strong> Huasano</p>
+        <p><strong>Hora de salida:</strong> 7:00 AM</p>
+        <p><strong>Hora estimada de llegada:</strong> 7:15 AM</p>
+      </div>
+      <div class="p-4 border rounded">
+        <p><strong>Origen:</strong> Corinto, Cauca</p>
+        <p><strong>Destino:</strong> El Palo</p>
+        <p><strong>Hora de salida:</strong> 7:30 AM</p>
+        <p><strong>Hora estimada de llegada:</strong> 8:00 AM</p>
+      </div>
+      <div class="p-4 border rounded">
+        <p><strong>Origen:</strong> Corinto, Cauca</p>
+        <p><strong>Destino:</strong> Caloto</p>
+        <p><strong>Hora de salida:</strong> 8:00 AM</p>
+        <p><strong>Hora estimada de llegada:</strong> 8:45 AM</p>
+      </div>
+      <div class="p-4 border rounded">
+        <p><strong>Origen:</strong> Corinto, Cauca</p>
+        <p><strong>Destino:</strong> Santander de Quilichao</p>
+        <p><strong>Hora de salida:</strong> 9:00 AM</p>
+        <p><strong>Hora estimada de llegada:</strong> 10:00 AM</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinos populares -->
+  <section class="max-w-6xl mx-auto mt-10 p-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">Destinos populares</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Cambia las rutas si usas imágenes locales -->
+      <div class="bg-white shadow rounded overflow-hidden">
+        <img src="images/elpalo.jpg" alt="El Palo">
+        <div class="p-4">
+          <h3 class="font-bold">Viaja a El Palo</h3>
+          <p class="text-sm text-gray-600">Desde $5.000 COP</p>
+        </div>
+      </div>
+      <div class="bg-white shadow rounded overflow-hidden">
+        <img src="images/caloto.jpg" alt="Caloto">
+        <div class="p-4">
+          <h3 class="font-bold">Explora Caloto</h3>
+          <p class="text-sm text-gray-600">Desde $8.000 COP</p>
+        </div>
+      </div>
+      <div class="bg-white shadow rounded overflow-hidden">
+        <img src="images/santander.jpg" alt="Santander de Quilichao">
+        <div class="p-4">
+          <h3 class="font-bold">Santander te espera</h3>
+          <p class="text-sm text-gray-600">Desde $10.000 COP</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pago con Nequi y descuentos -->
+  <section class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-xl shadow">
+    <h2 class="text-xl font-bold mb-4">Opciones de pago</h2>
+    <form id="form-pago" class="space-y-4">
+      <div>
+        <label class="block text-gray-600 mb-1">Número de Nequi</label>
+        <input type="text" placeholder="Ej: 3201234567" class="w-full border p-2 rounded" required>
+      </div>
+      <div>
+        <label class="block text-gray-600 mb-1">Aplicar descuento de estudiante</label>
+        <input type="checkbox" id="estudiante" class="mr-2">
+        <label for="estudiante">Sí, soy estudiante</label>
+      </div>
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Pagar</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-800 text-white text-center p-4 mt-10">
+    © 2025 MoviSmart | Compra de pasajes con Nequi | Descuentos para estudiantes
+  </footer>
+
+  <!-- JS de autenticación -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const authContainer = document.getElementById('auth-buttons');
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        try {
+          const res = await fetch('http://localhost:3000/api/verify-token', {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            authContainer.innerHTML = `
+              <span class="mr-4">Bienvenido, ${data.user.name}</span>
+              <button id="logoutBtn" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Cerrar sesión</button>
+            `;
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+              localStorage.removeItem('token');
+              location.reload();
+            });
+          } else {
+            localStorage.removeItem('token');
+          }
+        } catch (err) {
+          console.error('Error al verificar el token:', err);
+        }
+      }
+
+      // Verificar login antes de pagar
+      document.getElementById('form-pago').addEventListener('submit', (e) => {
+        if (!localStorage.getItem('token')) {
+          e.preventDefault();
+          alert('Debes iniciar sesión para realizar el pago.');
+        } else {
+          alert('Pago procesado (simulación)');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

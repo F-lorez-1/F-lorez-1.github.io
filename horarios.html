@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Horarios de Pasajes - MoviSmart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #mensaje {
+      text-align: center;
+      margin: 20px;
+      font-size: 18px;
+      color: #dc3545;
+    }
+
+    #contenedor-pasajes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tarjeta {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px;
+      width: 280px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .tarjeta p {
+      margin: 5px 0;
+    }
+
+    .boton {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Horarios de Pasajes - MoviSmart</h1>
+  <div id="mensaje"></div>
+  <div id="contenedor-pasajes"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const destinoSeleccionado = params.get("destino")?.toLowerCase();
+    const fechaSeleccionada = params.get("fecha");
+
+    const destinos = [
+      { nombre: "Huasano", minutos: 15 },
+      { nombre: "El Palo", minutos: 30 },
+      { nombre: "Caloto", minutos: 45 },
+      { nombre: "Santander de Quilichao", minutos: 60 }
+    ];
+
+    function generarPasajes() {
+      const contenedor = document.getElementById("contenedor-pasajes");
+      const mensaje = document.getElementById("mensaje");
+      let horaSalida = new Date();
+      horaSalida.setHours(5, 20, 0, 0);
+
+      const horaFinal = new Date();
+      horaFinal.setHours(18, 40, 0, 0);
+
+      let encontrados = 0;
+
+      while (horaSalida <= horaFinal) {
+        destinos.forEach(destino => {
+          const salidaStr = horaSalida.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+          const llegada = new Date(horaSalida.getTime() + destino.minutos * 60000);
+          const llegadaStr = llegada.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+          if (!destinoSeleccionado || destino.nombre.toLowerCase().includes(destinoSeleccionado)) {
+            const tarjeta = `
+              <div class="tarjeta">
+                <p><strong>Fecha:</strong> ${fechaSeleccionada || 'Hoy'}</p>
+                <p><strong>Origen:</strong> Corinto, Cauca</p>
+                <p><strong>Destino:</strong> ${destino.nombre}</p>
+                <p><strong>Hora de salida:</strong> ${salidaStr}</p>
+                <p><strong>Hora estimada de llegada:</strong> ${llegadaStr}</p>
+                <a class="boton" href="pago.html?origen=Corinto&destino=${encodeURIComponent(destino.nombre)}&fecha=${encodeURIComponent(fechaSeleccionada || 'Hoy')}&hora=${encodeURIComponent(salidaStr)}">
+  Comprar pasaje
+</a>
+              </div>
+            `;
+            contenedor.innerHTML += tarjeta;
+            encontrados++;
+          }
+        });
+
+        horaSalida = new Date(horaSalida.getTime() + 20 * 60000);
+      }
+
+      if (encontrados === 0) {
+        mensaje.textContent = "No se encontraron horarios para ese destino.";
+      }
+    }
+
+    generarPasajes();
+  </script>
+</body>
+</html>

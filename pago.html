@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pago del Pasaje - MoviSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col items-center justify-center px-4">
+
+  <div class="bg-white rounded-xl shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold text-blue-800 mb-6 text-center">Confirmación de Pasaje</h1>
+
+    <div id="resumen" class="text-gray-700 mb-6">
+      <!-- Aquí se muestra el resumen del viaje -->
+    </div>
+
+    <form id="formPago" class="space-y-4">
+      <div>
+        <label class="block mb-1 font-semibold">Número de Nequi</label>
+        <input type="text" name="nequi" required pattern="[0-9]{10}" class="w-full p-2 border rounded" placeholder="Ej: 3001234567">
+      </div>
+
+      <div>
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="estudiante" class="mr-2">
+          Soy estudiante (aplica descuento)
+        </label>
+      </div>
+
+      <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition">
+        Pagar con Nequi
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const origen = params.get('origen') || 'No especificado';
+    const destino = params.get('destino') || 'No especificado';
+    const fecha = params.get('fecha') || 'Sin fecha';
+    const hora = params.get('hora') || 'Sin hora';
+    let precio = parseFloat(params.get('precio') || 8000);
+
+    const resumenDiv = document.getElementById('resumen');
+
+    resumenDiv.innerHTML = `
+      <p><strong>Origen:</strong> ${origen}</p>
+      <p><strong>Destino:</strong> ${destino}</p>
+      <p><strong>Fecha:</strong> ${fecha}</p>
+      <p><strong>Hora:</strong> ${hora}</p>
+      <p id="precioFinal"><strong>Precio:</strong> $${precio.toLocaleString()}</p>
+    `;
+
+    const form = document.getElementById('formPago');
+    const estudianteCheckbox = document.getElementById('estudiante');
+
+    estudianteCheckbox.addEventListener('change', () => {
+      let final = precio;
+      if (estudianteCheckbox.checked) {
+        final = precio * 0.8;
+      }
+      document.getElementById('precioFinal').innerHTML = `<strong>Precio:</strong> $${final.toLocaleString()}`;
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const numero = form.nequi.value;
+      if (!numero.match(/^[0-9]{10}$/)) {
+        alert("Número de Nequi inválido.");
+        return;
+      }
+
+      // Aquí se simula el pago con Nequi (en proyecto real iría al backend)
+      alert("Pago procesado con éxito ✅");
+
+      window.location.href = `confirmacion.html?status=ok&origen=${origen}&destino=${destino}`;
+    });
+  </script>
+</body>
+</html>

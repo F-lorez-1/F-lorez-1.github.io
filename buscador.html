@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Pasajes - MoviSmart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f0f2f5;
+      text-align: center;
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscar Pasajes - MoviSmart</h1>
+
+  <label for="destino">Destino:</label>
+  <select id="destino">
+    <option value="">-- Selecciona destino --</option>
+    <option value="Huasano">Huasano</option>
+    <option value="El Palo">El Palo</option>
+    <option value="Caloto">Caloto</option>
+    <option value="Santander de Quilichao">Santander de Quilichao</option>
+  </select><br>
+
+  <label for="fecha">Fecha:</label>
+  <input type="date" id="fecha"><br>
+
+  <button id="btnBuscar">Buscar</button>
+
+  <script>
+    document.getElementById("btnBuscar").addEventListener("click", function () {
+      const destino = document.getElementById("destino").value;
+      const fecha = document.getElementById("fecha").value;
+
+      if (!destino || !fecha) {
+        alert("Por favor llena el destino y la fecha.");
+        return;
+      }
+
+      // Redirige con parámetros
+      const url = `horarios.html?destino=${encodeURIComponent(destino)}&fecha=${encodeURIComponent(fecha)}`;
+      window.location.href = url;
+    });
+  </script>
+</body>
+</html>
